@@ -13,7 +13,8 @@ void loop() {
 
   if (distance <= 16.0) {
     Serial.println("Object detected! Stopping motors.");
-    stopMotors();
+    moveback();
+    // stopMotors();
   } else {
     moveMotors();
   }
