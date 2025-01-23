@@ -1,6 +1,6 @@
 #include <Arduino.h>
-#include "motor_control.h"
-#include "ultrasonic_sensor.h"
+#include "./motors/motor_control.h"
+#include "./sensors/ultrasonic_sensor.h"
 
 void setup() {
   Serial.begin(9600);  // Start serial communication
