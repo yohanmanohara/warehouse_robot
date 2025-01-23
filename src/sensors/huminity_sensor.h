@@ -3,9 +3,8 @@
 
 #include <Arduino.h>
 
-// Pin definitions (example for a temperature sensor)
-#define TEMP_SENSOR_PIN 2 // Analog pin for temperature sensor
+#define HUMIDITY_SENSOR_PIN 4 
 
 void collectAndDisplayData();
 
-#endif // DATA_COLLECTION_H
+#endif
