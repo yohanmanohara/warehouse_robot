@@ -6,22 +6,20 @@
 void setup() {
   Serial.begin(9600);  // Start serial communication
   initUltrasonicSensor();
-  collectAndDisplayData(); 
+  // collectAndDisplayData(); 
   initMotors();
 }
 
 void loop() {
   float distance = measureDistance();
-  collectAndDisplayData(); 
-   
-
+ 
   if (distance <= 16.0) {
     Serial.println("Object detected! Stopping motors.");
-    moveback();
-    // stopMotors();
+    stopMotors();
   } else {
     moveMotors();
   }
 
   delay(500); 
+  //  collectAndDisplayData(); 
 }

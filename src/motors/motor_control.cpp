@@ -16,7 +16,7 @@ void moveMotors() {
   digitalWrite(IN2, LOW);
   analogWrite(ENA,  100); // Speed control (0-255)
 
-  // Motor B reverse
+  //Motor B reverse
   digitalWrite(IN3, HIGH);
   digitalWrite(IN4, LOW);
   analogWrite(ENB, 100); // Speed control (0-255)
