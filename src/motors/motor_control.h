@@ -15,4 +15,8 @@ void initMotors();
 void moveMotors();
 void stopMotors();
 void moveback();
+void turnLeft();
+void turnRight();
+void turnRight90();
+void turnLeft90();
 #endif

@@ -4,6 +4,8 @@
 #include "./sensors/huminity_sensor.h"
 
 #include <DHT.h>
+#include <WiFi.h>
+
 
 unsigned long previousMillis = 0;  // Stores the last time data was collected
 const long interval = 1000;         // Interval to collect data (in milliseconds)
@@ -13,20 +15,21 @@ void setup() {
   dht.begin(); 
   initUltrasonicSensor();
   initMotors();
+
+
 }
 
 void loop() {
-  unsigned long currentMillis = millis();  // Get the current time
+  unsigned long currentMillis = millis();  
 
-  // Measure distance
   float distance = measureDistance();
  
   if (distance <= 16.0) {
     Serial.println("Object detected! Stopping motors.");
     Serial.println(distance);
-    stopMotors();
+    turnLeft90();
   } else {
-    moveMotors();
+    // moveMotors();
   }
 
   // Collect and display data at intervals

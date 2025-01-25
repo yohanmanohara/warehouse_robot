@@ -11,12 +11,10 @@ void initMotors() {
 }
 
 void moveMotors() {
-  // Motor A forward
   digitalWrite(IN1, HIGH);
   digitalWrite(IN2, LOW);
   analogWrite(ENA,  100); // Speed control (0-255)
 
-  //Motor B reverse
   digitalWrite(IN3, HIGH);
   digitalWrite(IN4, LOW);
   analogWrite(ENB, 100); // Speed control (0-255)
@@ -53,9 +51,71 @@ void moveback() {
 }
 
 
+void turnRight() {
+  // Turn Motor A forward
+  digitalWrite(IN1, HIGH);
+  digitalWrite(IN2, LOW);
+  analogWrite(ENA, 100); // Speed control (0-255)
 
+  // Turn Motor B reverse (Right turn)
+  digitalWrite(IN3, LOW);
+  digitalWrite(IN4, HIGH);
+  analogWrite(ENB, 100); // Speed control (0-255)
 
+  Serial.println("Turning Right");
+}
 
- 
+void turnLeft() {
+  // Turn Motor A reverse (Left turn)
+  digitalWrite(IN1, LOW);
+  digitalWrite(IN2, HIGH);
+  analogWrite(ENA, 100); // Speed control (0-255)
+
+  // Turn Motor B forward
+  digitalWrite(IN3, HIGH);
+  digitalWrite(IN4, LOW);
+  analogWrite(ENB, 100); // Speed control (0-255)
+
+  Serial.println("Turning Left");
+}
+
+void turnLeft90() {
+
+  digitalWrite(IN1, LOW);
+  digitalWrite(IN2, HIGH);
+  analogWrite(ENA, 100); 
+
+  digitalWrite(IN3, HIGH);
+  digitalWrite(IN4, LOW);
+  analogWrite(ENB, 100); 
+
+  Serial.println("Turning Left 90 Degrees");
+  
+  
+  delay(1000);  
+
+  stopMotors();
+}
+
+ void turnRight90() {
+  // Turn Motor A forward (Right turn)
+  digitalWrite(IN1, HIGH);
+  digitalWrite(IN2, LOW);
+  analogWrite(ENA, 100); // Speed control (0-255)
+
+  // Turn Motor B reverse
+  digitalWrite(IN3, LOW);
+  digitalWrite(IN4, HIGH);
+  analogWrite(ENB, 100); // Speed control (0-255)
+
+  Serial.println("Turning Right 90 Degrees");
+  
+  // Wait for the robot to complete a 90-degree turn
+  // You may need to adjust the time (in milliseconds) based on your setup
+  delay(1000);  // Adjust this delay based on the robot's speed and wheel size
+
+  // Stop the motors after the turn
+  stopMotors();
+}
 
   
