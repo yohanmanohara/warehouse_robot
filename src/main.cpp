@@ -3,11 +3,14 @@
 #include "./sensors/ultrasonic_sensor.h"
 #include "./sensors/huminity_sensor.h"
 
+#include <DHT.h>
 void setup() {
-  Serial.begin(9600);  // Start serial communication
+  Serial.begin(9600); 
+  dht.begin(); 
   initUltrasonicSensor();
-  // collectAndDisplayData(); 
+  collectAndDisplayData(); 
   initMotors();
+  
 }
 
 void loop() {
@@ -18,10 +21,9 @@ void loop() {
     Serial.println("Object detected! Stopping motors.");
     Serial.println(distance);
     stopMotors();
+   
   } else {
-    moveback();
+    moveMotors();
   }
-
-  delay(500); 
-  //  collectAndDisplayData(); 
+   collectAndDisplayData(); 
 }

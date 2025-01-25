@@ -1,10 +1,13 @@
-#ifndef DATA_COLLECTION_H
-#define DATA_COLLECTION_H
+#ifndef HUMINITY_SENSOR_H
+#define HUMINITY_SENSOR_H
 
-#include <Arduino.h>
+#include <DHT.h>
 
-#define HUMIDITY_SENSOR_PIN 4 
+#define DPIN 26
+#define DTYPE DHT11  // Define DHT11 or DHT22
+
+extern DHT dht;  // Declare dht as an external object to be defined in .cpp file
 
 void collectAndDisplayData();
 
-#endif
+#endif // HUMINITY_SENSOR_H
