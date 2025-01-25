@@ -2,14 +2,14 @@
 #define MOTOR_CONTROL_H
 
 // Motor A
-#define ENA 19  // Motor A speed (PWM)
+#define ENA 15  // Motor A speed (PWM)
 #define IN1 21 // Motor A direction
 #define IN2 18 // Motor A direction
 
 // Motor B
-#define ENB 23  // Motor B speed (PWM)
-#define IN3 5 // Motor B direction
-#define IN4 22 // Motor B direction
+#define ENB 5  // Motor B speed (PWM)
+#define IN3 22 // Motor B direction
+#define IN4 19 // Motor B direction
 
 void initMotors();
 void moveMotors();

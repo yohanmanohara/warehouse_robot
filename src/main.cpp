@@ -14,10 +14,12 @@ void loop() {
   float distance = measureDistance();
  
   if (distance <= 16.0) {
+    
     Serial.println("Object detected! Stopping motors.");
+    Serial.println(distance);
     stopMotors();
   } else {
-    moveMotors();
+    moveback();
   }
 
   delay(500); 
