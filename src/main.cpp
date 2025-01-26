@@ -1,40 +1,23 @@
-#include <Arduino.h>
-#include "./motors/motor_control.h"
-#include "./sensors/ultrasonic_sensor.h"
-#include "./sensors/huminity_sensor.h"
+#include <SPI.h>
+#include <MFRC522.h>
 
-#include <DHT.h>
-#include <WiFi.h>
+#define SS_PIN 5
+#define RST_PIN 22
 
-
-unsigned long previousMillis = 0;  // Stores the last time data was collected
-const long interval = 1000;         // Interval to collect data (in milliseconds)
+MFRC522 mfrc522(SS_PIN, RST_PIN);
 
 void setup() {
-  Serial.begin(9600); 
-  dht.begin(); 
-  initUltrasonicSensor();
-  initMotors();
-
-
+  Serial.begin(9600);
+  SPI.begin();
+  mfrc522.PCD_Init();
+  Serial.println("RFID scanner ready.");
 }
 
 void loop() {
-  unsigned long currentMillis = millis();  
-
-  float distance = measureDistance();
- 
-  if (distance <= 16.0) {
-    Serial.println("Object detected! Stopping motors.");
-    Serial.println(distance);
-    turnLeft90();
+  if (mfrc522.PICC_IsNewCardPresent()) {
+    Serial.println("Card detected!");
   } else {
-    // moveMotors();
+    Serial.println("No card...");
   }
-
-  // Collect and display data at intervals
-  if (currentMillis - previousMillis >= interval) {
-    previousMillis = currentMillis;  // Update the last time we collected data
-    collectAndDisplayData();         // Call the data collection function
-  }
+  
 }
