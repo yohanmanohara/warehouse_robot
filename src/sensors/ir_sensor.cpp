@@ -1,73 +1,56 @@
-#include "IR_Sensor.h"
+#include "./ir_sensor.h"
+#include <Arduino.h>
 
-IRSensor::IRSensor(int leftPin, int rightPin, int leftMotorF, int leftMotorB, int rightMotorF, int rightMotorB) {
-    _leftPin = leftPin;
-    _rightPin = rightPin;
-    _leftMotorF = leftMotorF;
-    _leftMotorB = leftMotorB;
-    _rightMotorF = rightMotorF;
-    _rightMotorB = rightMotorB;
+// Define pin numbers here
+const int pinOUT1 = 1; // adjust the pin numbers
+const int pinOUT2 = 2;
+const int pinOUT3 = 3;
+const int pinOUT4 = 4;
+const int pinOUT5 = 5;
+
+// IR sensor values
+int IRvalue1 = 0;
+int IRvalue2 = 0;
+int IRvalue3 = 0;
+int IRvalue4 = 0;
+int IRvalue5 = 0;
+
+void setupIrSensors() {
+    pinMode(pinOUT1, INPUT);
+    pinMode(pinOUT2, INPUT);
+    pinMode(pinOUT3, INPUT);
+    pinMode(pinOUT4, INPUT);
+    pinMode(pinOUT5, INPUT);
+    Serial.println("IR sensors initialized");
 }
 
-void IRSensor::begin() {
-    pinMode(_leftPin, INPUT);
-    pinMode(_rightPin, INPUT);
-    pinMode(_leftMotorF, OUTPUT);
-    pinMode(_leftMotorB, OUTPUT);
-    pinMode(_rightMotorF, OUTPUT);
-    pinMode(_rightMotorB, OUTPUT);
+void readIrSensors() {
+    IRvalue1 = digitalRead(pinOUT1);
+    IRvalue2 = digitalRead(pinOUT2);
+    IRvalue3 = digitalRead(pinOUT3);
+    IRvalue4 = digitalRead(pinOUT4);
+    IRvalue5 = digitalRead(pinOUT5);
+
+    Serial.print("Digital Readings: ");
+    Serial.print(IRvalue1);
+    Serial.print(" ");
+    Serial.print(IRvalue2);
+    Serial.print(" ");
+    Serial.print(IRvalue3);
+    Serial.print(" ");
+    Serial.print(IRvalue4);
+    Serial.print(" ");
+    Serial.println(IRvalue5);
 }
 
-int IRSensor::readLeft() {
-    return digitalRead(_leftPin);
-}
-
-int IRSensor::readRight() {
-    return digitalRead(_rightPin);
-}
-
-void IRSensor::followLine() {
-    int left = readLeft();
-    int right = readRight();
-
-    if (left == 0 && right == 0) {  
-        moveForward();  // Move straight
-    } 
-    else if (left == 1 && right == 0) {  
-        turnRight();  // Right sensor on black, turn right
-    } 
-    else if (left == 0 && right == 1) {  
-        turnLeft();  // Left sensor on black, turn left
-    } 
-    else {  
-        stopMotors();  // Stop if no black line detected
+// get individual sensor readings
+int getIRSensor(int sensorNumber) {
+    switch(sensorNumber) {
+        case 1: return IRvalue1;
+        case 2: return IRvalue2;
+        case 3: return IRvalue3;
+        case 4: return IRvalue4;
+        case 5: return IRvalue5;
+        default: return -1;
     }
-}
-
-void IRSensor::moveForward() {
-    digitalWrite(_leftMotorF, HIGH);
-    digitalWrite(_leftMotorB, LOW);
-    digitalWrite(_rightMotorF, HIGH);
-    digitalWrite(_rightMotorB, LOW);
-}
-
-void IRSensor::turnLeft() {
-    digitalWrite(_leftMotorF, LOW);
-    digitalWrite(_leftMotorB, HIGH);
-    digitalWrite(_rightMotorF, HIGH);
-    digitalWrite(_rightMotorB, LOW);
-}
-
-void IRSensor::turnRight() {
-    digitalWrite(_leftMotorF, HIGH);
-    digitalWrite(_leftMotorB, LOW);
-    digitalWrite(_rightMotorF, LOW);
-    digitalWrite(_rightMotorB, HIGH);
-}
-
-void IRSensor::stopMotors() {
-    digitalWrite(_leftMotorF, LOW);
-    digitalWrite(_leftMotorB, LOW);
-    digitalWrite(_rightMotorF, LOW);
-    digitalWrite(_rightMotorB, LOW);
 }
