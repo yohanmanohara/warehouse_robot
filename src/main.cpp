@@ -1,40 +1,20 @@
 #include <Arduino.h>
-#include "./motors/motor_control.h"
-#include "./sensors/ultrasonic_sensor.h"
-#include "./sensors/huminity_sensor.h"
+#include "./stepermotor/stepfunction.h"
 
-#include <DHT.h>
-#include <WiFi.h>
-
-
-unsigned long previousMillis = 0;  // Stores the last time data was collected
-const long interval = 1000;         // Interval to collect data (in milliseconds)
+// Configuration settings
+const int stepDelay = 200;  // Reduced delay for higher speed
+const int stepCount = 3000; // Number of steps per cycle
 
 void setup() {
-  Serial.begin(9600); 
-  dht.begin(); 
-  initUltrasonicSensor();
-  initMotors();
-
-
+    motorSetup();
 }
 
 void loop() {
-  unsigned long currentMillis = millis();  
+    // Move forward
+    moveForward(stepCount, stepDelay);
+    delay(1000);  // Wait 1 second
 
-  float distance = measureDistance();
- 
-  if (distance <= 16.0) {
-    Serial.println("Object detected! Stopping motors.");
-    Serial.println(distance);
-    turnLeft90();
-  } else {
-    // moveMotors();
-  }
-
-  // Collect and display data at intervals
-  if (currentMillis - previousMillis >= interval) {
-    previousMillis = currentMillis;  // Update the last time we collected data
-    collectAndDisplayData();         // Call the data collection function
-  }
+    // Move backward
+    moveBackward(stepCount, stepDelay);
+    delay(1000);  // Wait 1 second
 }
